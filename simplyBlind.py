@@ -23,7 +23,7 @@ class Check:
         if(response):
             statusCode = response.status_code
 
-
+        match = False
         if(timeout and mode == "to"):
               match = True
               verboseMassage = "--MATCHED: Timeout: TRUE"
@@ -53,9 +53,7 @@ class Check:
         if(self.varyVerbose):
             print(verboseMassage)
 
-        if(match):
-            return True
-        return False
+        return match
 
 
 class Body:
