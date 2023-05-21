@@ -366,7 +366,7 @@ parser.add_argument('-s', '--silent', action='store_true',
 subParsers = parser.add_subparsers(help='Attack Type:', required=True)
 
 
-quick = subParsers.add_parser('quick', formatter_class=argparse.RawDescriptionHelpFormatter, description='Runs the payload and check if it matches the condition (targeted CHAR > CHAR). \nIf matched, it checks the distance of previous and current character index if it\'s less than 3. \nIf distance is less than 3. Check if current and ± 3 of CHAR = targeted CHAR. \nIf distance is greater than 3, CHAR index + (distance/2). \nIf NOT match. CHAR index - (distance/2)', help="Quick attack quickly narrowes down possible CHAR before checking it. making it faster than brute", epilog=epi.format(atype="quick"))
+quick = subParsers.add_parser('quick', formatter_class=argparse.RawDescriptionHelpFormatter, description='Runs the payload and check if it matches the condition (targeted CHAR > CHAR). \nIf matched, it checks the distance of previous and current character index if it\'s less than 3. \nIf distance is less than 3. Check if current and ± 3 of CHAR = targeted CHAR. \nIf distance is greater than 3, CHAR index + (distance/2). \nIf NOT match. CHAR index - (distance/2)', help="Quick attack quickly narrows down possible CHAR before checking it. making it faster than brute", epilog=epi.format(atype="quick"))
 quick.set_defaults(run=main)
 quick.set_defaults(brute=False)
 
