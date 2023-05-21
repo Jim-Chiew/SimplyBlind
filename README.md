@@ -1,23 +1,23 @@
 # SimplyBlind  
 A script to extracted characters by exploiting blind SQL injection.
 
-Designed for Capture The Flags (CTF) as i felt it was too troublesome to meanual extract each character. This is not ment for illegal use. please do not run this script on site you do not have permisssions on.
+Designed for Capture The Flags (CTF) as I felt it was too troublesome to manual extract each character. This is not meant for illegal use. Please do not run this script on sites you do not have permissions on.
 
-## Quick Start Quide:  
+## Quick Start Guide:    
 There are 2 "attack" modes:
 - Brute: Brute force every character in the table
-- Quick: Quick attack narrowes down possible CHAR before checking it. making it faster than brute
+- Quick: Quick attack narrows down possible CHAR before checking it. Making it faster than brute
 
 Modes are set with `-m <mode>`:  
 - sc   Status Code 
 - reg   regex  
-- redir   rediract  
+- redir   redirect    
 - to | nto  timeout | not_timeout  
 
 The mode identifies if the injection returned a TRUE or FALSE.
 
 ## Examples:
-Reponse Status code
+Response Status code
 ``` shell
 python simplyBlind.py quick -p "1' AND BINARY SUBSTR(password, \!I, 1) \!S '\!C' #" -c '{"PHPSESSID":"etc7stehjcs7c4kqaa6p6kit03", "security":"low"}' --get http://localhost/vulnerabilities/sqli_blind/
 ```
@@ -40,11 +40,11 @@ python simplyBlind.py quick -m to --timeout 0.5 -p "10' AND IF(BINARY SUBSTR(pas
 ![timeout](img/time.gif)
 
 
-### Common Peremeter:
-`-p <payload>`   takes in a string to set custom payload. the payload takes in key that will be replaces with the appropiate value. keys, !I = incrementer, !S = symbol, !C = Char. Incrementers will run from 1 to the end of character in database or till its the same value as --limit. Symbol is used to narrow down and determin if the target character is the character we want. Character will be the character we are trying to match with.  
+### Common Parameter:
+`-p <payload>`   takes in a string to set custom payload. The payload takes in keys that will be replaced with the appropriate value. Keys, !I = increment, !S = symbol, !C = Char. Increments will run from 1 to the end of character in database, or till it's the same value as --limit. The symbol is used to narrow down and determine if the targeted character is the character we want. Character will be the character we are trying to match with.    
 
 `-b <body>`   Takes in a string that sets the custom body. Body takes the key !P that will be replaced with the payload.  
 
-`--get`   Set method to GET. default is POST.
+`--get`   Set method to GET. Default is POST.
 
 `-h`   For help menu
