@@ -72,7 +72,7 @@ The 1st character of the password is **4**.
 	- if yes, looks at 6 and up. meaning 6 to 10. starting from 8
 	- if no, looks at 4 and down. so 1 to 4. starting from 2
 - Repeats until the space from the current index to the previous is less or equal to 3. when that happens it checks incrementally of each of the 3 character. 
-	 when checking character `3`, 3 to 5 (the previous inferred char) is less the 3 spaces. it looks to see if 3, 4, 5 matches the 1st char of password.
+	 so when checking the character `3`, 3 to 5 (the previous inferred char) is less the 3 spaces. it looks to see if 3, 4, 5 matches the 1st char of password.
 	 
 	 how does it know to move up or down?
 	 It looks at the last quarry. 
@@ -118,9 +118,8 @@ What the payload does is it looks at the password column of the user whos ID = `
 To set the keys
 - Replace password character index with !I
 - Replace comparison with !S
-- Replace compared character with !C
-e.g.:
-`4' AND BINARY SUBSTR(password, \!I, 1) \!S '\!C' #`
+- Replace compared character with !C  
+e.g.: `4' AND BINARY SUBSTR(password, \!I, 1) \!S '\!C' #`  
 Don't forget to escape exclamation  with `\` in terminal. 
 
 ## Body
