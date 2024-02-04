@@ -27,7 +27,7 @@ class Check:
         if(timeout and mode == "to"):
               match = True
               verboseMassage = "--MATCHED: Timeout: TRUE"
-        elif(mode == "nto"):
+        elif(!timeout and mode == "nto"):
               match = True
               verboseMassage = "--MATCHED: Not Timeout: TRUE"
         elif(not mode):
