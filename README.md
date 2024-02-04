@@ -63,6 +63,7 @@ lets say the [character table](#character-table) is as follows:
 
 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
 | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: |
+
 The 1st character of the password is **4**.
 - The code first takes the middle (in this case the char `5`) and compares to see if 1st char of password is greater then `5`. 
 	- if yes, looks at 6 and up. meaning 6 to 10. starting from 8
